@@ -1,10 +1,7 @@
   env.DOCKERHUB_USERNAME = 'mms-cv'
 
   node("TestMachine-ut") {
-    stage("PollSCM"){
-      sh 'git clone https://github.com/mms-cv/cd-demo.git'
-      sh 'cd cd-demo'
-    }
+    checkout scm
     stage("Unit Test") {
       sh "docker run --rm -v /home/jenkins/workspace/cd-demo:/go/src/cd-demo golang go test cd-demo -v --run Unit"
     }
