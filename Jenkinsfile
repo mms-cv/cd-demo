@@ -3,7 +3,7 @@
   node("TestMachine-ut") {
     checkout scm
     stage("Unit Test") {
-      sh 'cd /home/jenkins/workspace ; ls ; pwd'
+      sh 'cd /datavolume1 ; git clone https://github.com/mms-cv/cd-demo.git ;  ls ; pwd'
       sh "docker run --rm -v DataVolume1:/go/src/cd-demo golang go test cd-demo -v --run Unit"
     }
     stage("Integration Test") { 
