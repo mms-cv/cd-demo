@@ -3,6 +3,7 @@
   node("TestMachine-ut") {
     checkout scm
     stage("Unit Test") {
+      sh 'ls ; pwd'
       sh "docker run --rm -v /home/jenkins/workspace/cd-demo:/go/src/cd-demo golang go test cd-demo -v --run Unit"
     }
     stage("Integration Test") { 
