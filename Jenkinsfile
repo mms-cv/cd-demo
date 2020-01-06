@@ -22,31 +22,18 @@
         sh "docker images -aq -f dangling=true | xargs docker rmi || true"
       }
     }
+    stage('logging into harbor'){
+          withCredentials([usernamePassword(credentialsId: 'harbor-sec', passwordVariable: 'HPASS', usernameVariable: 'HUSER')]) {
+              sh 'echo "10.0.0.145    harbor.this" >> /etc/hosts'
+              sh 'echo $HPASS > ~/pass.txt'
+              sh 'docker login -u $HUSER harbor.this --password-stdin < ~/pass.txt'
+          }
+    }
     stage("Build") {
-      sh "docker build -t ${DOCKERHUB_USERNAME}/cd-demo:${BUILD_NUMBER} ."
+      sh "docker build -t harbor.this/codevalue/cd-demo:${BUILD_NUMBER} ."
     }
     stage("Publish") {
-     // withDockerRegistry([credentialsId: 'DockerHub']) {
-     //   sh "docker push ${DOCKERHUB_USERNAME}/cd-demo:${BUILD_NUMBER}"
-     // }
-    }
-  }
-
- /* node("docker-stage") {
-    checkout scm
-
-    stage("Staging") {
-      try {
-        sh "docker rm -f cd-demo || true"
-        sh "docker run -d -p 8080:8080 --name=cd-demo ${DOCKERHUB_USERNAME}/cd-demo:${BUILD_NUMBER}"
-        sh "docker run --rm -v ${WORKSPACE}:/go/src/cd-demo --link=cd-demo -e SERVER=cd-demo golang go test cd-demo -v"
-
-      } catch(e) {
-        error "Staging failed"
-      } finally {
-        sh "docker rm -f cd-demo || true"
-        sh "docker ps -aq | xargs docker rm || true"
-        sh "docker images -aq -f dangling=true | xargs docker rmi || true"
+        sh "docker push harbor.this/codevalue/cd-demo:${BUILD_NUMBER}"
       }
     }
-  }*/
+  }
