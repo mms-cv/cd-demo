@@ -2,10 +2,12 @@
 
   node("TestMachine-ut") {
     stage("PollSCM"){
+      sh 'cd ~'
       sh 'git clone https://github.com/mms-cv/cd-demo.git'
+      sh 'cd ~/cd-demo'
     }
     stage("Unit Test") {
-      sh "docker run --rm -v cd-demo:/go/src/cd-demo golang go test cd-demo -v --run Unit"
+      sh "docker run --rm -v ~/cd-demo:/go/src/cd-demo golang go test cd-demo -v --run Unit"
     }
     stage("Integration Test") { 
       try {
@@ -13,7 +15,7 @@
         sh "docker rm -f cd-demo || true"
         sh "docker run -d -p 8080:8080 --name=cd-demo cd-demo"
         // env variable is used to set the server where go test will connect to run the test
-        sh "docker run --rm -v cd-demo:/go/src/cd-demo --link=cd-demo -e SERVER=cd-demo golang go test cd-demo -v --run Integration"
+        sh "docker run --rm -v ~/cd-demo:/go/src/cd-demo --link=cd-demo -e SERVER=cd-demo golang go test cd-demo -v --run Integration"
       }
       catch(e) {
         error "Integration Test failed"
