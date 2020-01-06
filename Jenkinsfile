@@ -34,6 +34,5 @@
     }
     stage("Publish") {
         sh "docker push harbor.this/codevalue/cd-demo:${BUILD_NUMBER}"
-      }
     }
   }
