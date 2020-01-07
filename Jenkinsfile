@@ -1,6 +1,6 @@
   node("TestMachine-ut") {
     stage("Preapring Environment"){
-      sh "rm -r /datavolume1/* ; mkdir /tmp/${BUILD_NUMBER} ; git clone https://github.com/mms-cv/cd-demo.git /tmp/${BUILD_NUMBER}/ ; mv /tmp/${BUILD_NUMBER}/* /datavolume1/"
+      sh "rm -rf /datavolume1/* ; mkdir /tmp/${BUILD_NUMBER} ; git clone https://github.com/mms-cv/cd-demo.git /tmp/${BUILD_NUMBER}/ ; mv /tmp/${BUILD_NUMBER}/* /datavolume1/"
     }
     stage("Unit Test") {
       sh "cd /datavolume1 ; docker run --rm -v DataVolume1:/go/src/cd-demo golang go test cd-demo -v --run Unit"
