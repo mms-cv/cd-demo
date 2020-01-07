@@ -1,12 +1,14 @@
   node("TestMachine-ut") {
+    stage("Preapring Environment"){
+      sh "mkdir /tmp/${BUILD_NUMBER} ; git clone https://github.com/mms-cv/cd-demo.git /tmp/${BUILD_NUMBER}/ ; mv /tmp/${BUILD_NUMBER}/* /datavolume1/"
+    }
     stage("Unit Test") {
-        sh "cd /datavolume1 ; mkdir ${BUILD_NUMBER} ; cd ${BUILD_NUMBER} ;  git clone https://github.com/mms-cv/cd-demo.git . ;  ls ; pwd"
-      sh "docker run --rm -v DataVolume1:/go/src/cd-demo golang go test cd-demo -v --run Unit"
+      sh "cd /datavolume1 ; docker run --rm -v DataVolume1:/go/src/cd-demo golang go test cd-demo -v --run Unit"
       sh "ls ; pwd"
     }
     stage("Integration Test") { 
       try {
-        sh "cd /datavolume1/${BUILD_NUMBER} ; docker build -t cd-demo ."
+        sh "cd /datavolume1 ; docker build -t cd-demo ."
         sh "docker rm -f cd-demo || true"
         sh "docker run -d -p 8080:8080 --name=cd-demo cd-demo"
         // env variable is used to set the server where go test will connect to run the test 
@@ -28,7 +30,7 @@
           }
     }
     stage("Build") {
-      sh "cd /datavolume1/${BUILD_NUMBER} ; docker build -t harbor.this/codevalue/cd-demo:${BUILD_NUMBER} ."
+      sh "cd /datavolume1 ; docker build -t harbor.this/codevalue/cd-demo:${BUILD_NUMBER} ."
     }
     stage("Publish") {
         sh "docker push harbor.this/codevalue/cd-demo:${BUILD_NUMBER}"
