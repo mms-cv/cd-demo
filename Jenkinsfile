@@ -1,7 +1,4 @@
-  env.DOCKERHUB_USERNAME = 'mms-cv'
-
   node("TestMachine-ut") {
-   try{
     stage("Unit Test") {
       sh 'cd /datavolume1 ; git clone https://github.com/mms-cv/cd-demo.git . ;  ls ; pwd'
       sh "docker run --rm -v DataVolume1:/go/src/cd-demo golang go test cd-demo -v --run Unit"
@@ -34,10 +31,5 @@
     }
     stage("Publish") {
         sh "docker push harbor.this/codevalue/cd-demo:${BUILD_NUMBER}"
-    }
-    catch(e_pipeline){
-      error "Pipeline Build Failed"
-    }finally{
-      sh 'rm -rf /datavolume1/*'
     }
   }
