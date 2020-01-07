@@ -28,7 +28,7 @@
           }
     }
     stage("Build") {
-      sh "docker build -t harbor.this/codevalue/cd-demo:${BUILD_NUMBER} ."
+      sh "cd /datavolume1 ; docker build -t harbor.this/codevalue/cd-demo:${BUILD_NUMBER} ."
     }
     stage("Publish") {
         sh "docker push harbor.this/codevalue/cd-demo:${BUILD_NUMBER}"
