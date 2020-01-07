@@ -1,7 +1,7 @@
   env.DOCKERHUB_USERNAME = 'mms-cv'
 
   node("TestMachine-ut") {
-    checkout scm
+   try{
     stage("Unit Test") {
       sh 'cd /datavolume1 ; git clone https://github.com/mms-cv/cd-demo.git . ;  ls ; pwd'
       sh "docker run --rm -v DataVolume1:/go/src/cd-demo golang go test cd-demo -v --run Unit"
@@ -11,7 +11,7 @@
         sh "docker build -t cd-demo ."
         sh "docker rm -f cd-demo || true"
         sh "docker run -d -p 8080:8080 --name=cd-demo cd-demo"
-        // env variable is used to set the server where go test will connect to run the test
+        // env variable is used to set the server where go test will connect to run the test 
         sh "docker run --rm -v DataVolume1:/go/src/cd-demo --link=cd-demo -e SERVER=cd-demo golang go test cd-demo -v --run Integration"
       }
       catch(e) {
@@ -34,5 +34,10 @@
     }
     stage("Publish") {
         sh "docker push harbor.this/codevalue/cd-demo:${BUILD_NUMBER}"
+    }
+    catch(e_pipeline){
+      error "Pipeline Build Failed"
+    }finally{
+      sh 'rm -rf /datavolume1/*'
     }
   }
