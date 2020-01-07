@@ -3,6 +3,7 @@
       sh "curl -sL https://aka.ms/InstallAzureCLIDeb | bash"
       withCredentials([usernamePassword(credentialsId: 'Azure-Cred', passwordVariable: 'AZPASS', usernameVariable: 'AZUSER')]) {
           sh 'export AZURE_DEVOPS_EXT_PAT=$AZPASS'
+          sh 'az extension add --name azure-devops'
           sh 'az devops login --organization $AZUSER'
       }
     }
