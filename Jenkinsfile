@@ -6,7 +6,7 @@
     }
     stage("Integration Test") { 
       try {
-        sh "docker build -t cd-demo ."
+        sh "cd /datavolume1 ; docker build -t cd-demo ."
         sh "docker rm -f cd-demo || true"
         sh "docker run -d -p 8080:8080 --name=cd-demo cd-demo"
         // env variable is used to set the server where go test will connect to run the test 
