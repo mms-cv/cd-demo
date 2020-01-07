@@ -1,10 +1,9 @@
   node("TestMachine-ut") {
     stage("Unit Test") {
-      sh 'cd /datavolume1'
       try{
-        sh 'git clone https://github.com/mms-cv/cd-demo.git . ;  ls ; pwd'
+        sh 'cd /datavolume1 ; git clone https://github.com/mms-cv/cd-demo.git . ;  ls ; pwd'
       }catch(e){
-        sh 'git pull https://github.com/mms-cv/cd-demo.git . ;  ls ; pwd'
+        sh 'cd /datavolume1 ; git pull https://github.com/mms-cv/cd-demo.git . ;  ls ; pwd'
       }
       sh "docker run --rm -v DataVolume1:/go/src/cd-demo golang go test cd-demo -v --run Unit"
       sh "ls ; pwd"
