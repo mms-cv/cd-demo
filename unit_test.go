@@ -19,7 +19,7 @@ func TestUnit(t *testing.T) {
 
 		if body, err := ioutil.ReadAll(w.Body); err != nil {
 			t.Error(err)
-		} else if string(body) != x.reply {
+		} else if string(body) != x.reply { 
 			t.Error("oops we have a problem: expected reply - ", x.reply, ", but got - ", string(body))
 		}
 	}
