@@ -1,4 +1,11 @@
   node("TestMachine-ut") {
+    stage("Connecting To Azure Artifacts...."){
+      sh "curl -sL https://aka.ms/InstallAzureCLIDeb | bash"
+      withCredentials([usernamePassword(credentialsId: 'Azure-Cred', passwordVariable: 'AZPASS', usernameVariable: 'AZUSER')]) {
+          sh 'export AZURE_DEVOPS_EXT_PAT=$AZPASS'
+          sh 'az devops login --organization $AZUSER'
+      }
+    }
     stage("Preapring Environment"){
       sh "rm -rf /datavolume1/* ; mkdir /tmp/${BUILD_NUMBER} ; git clone https://github.com/mms-cv/cd-demo.git /tmp/${BUILD_NUMBER}/ ; mv /tmp/${BUILD_NUMBER}/* /datavolume1/"
     }
@@ -21,7 +28,7 @@
         sh "docker images -aq -f dangling=true | xargs docker rmi || true"
       }
     }
-    stage('logging into harbor'){
+    stage('Logging Into Harbor'){
           withCredentials([usernamePassword(credentialsId: 'harbor-sec', passwordVariable: 'HPASS', usernameVariable: 'HUSER')]) {
               sh 'echo "10.0.0.145    harbor.this" >> /etc/hosts'
               sh 'echo $HPASS > ~/pass.txt'
