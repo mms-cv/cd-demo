@@ -1,7 +1,7 @@
   node("TestMachine-ut") {
     stage("Connecting To Azure Artifacts...."){
       withCredentials([usernamePassword(credentialsId: 'Azure-Cred', passwordVariable: 'AZPASS', usernameVariable: 'AZUSER')]) {
-          sh 'docker run mcr.microsoft.com/azure-cli /bin/bash -c "export AZURE_DEVOPS_EXT_PAT=$AZPASS ; az extension add --name azure-devopsaz extension add --name azure-devops ; az devops login --organization $AZUSER"'
+          sh 'docker run mcr.microsoft.com/azure-cli /bin/bash -c "export AZURE_DEVOPS_EXT_PAT=$AZPASS && az extension add --name azure-devopsaz extension add --name azure-devops && az devops login --organization $AZUSER"'
       }
     }
     stage("Preapring Environment"){
