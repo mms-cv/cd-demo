@@ -1,9 +1,9 @@
   node("TestMachine-ut") {
-    stage("Connecting To Azure Artifacts...."){
+   /* stage("Connecting To Azure Artifacts...."){
       withCredentials([usernamePassword(credentialsId: 'Azure-Cred', passwordVariable: 'AZPASS', usernameVariable: 'AZUSER')]) {
-          sh 'docker run mcr.microsoft.com/azure-cli bash -c "export AZURE_DEVOPS_EXT_PAT=$AZPASS && az extension add --name azure-devops && az devops project list --org https://dev.azure.com/myorg"'
+          sh 'docker run mcr.microsoft.com/azure-cli bash -c "export AZURE_DEVOPS_EXT_PAT=$AZPASS && az extension add --name azure-devops &&  cat my_pat_token.txt | az devops login --organization $AZUSER"'
       }
-    }
+    }*/
     stage("Preapring Environment"){
       sh "rm -rf /datavolume1/* ; mkdir /tmp/${BUILD_NUMBER} ; git clone https://github.com/mms-cv/cd-demo.git /tmp/${BUILD_NUMBER}/ ; mv /tmp/${BUILD_NUMBER}/* /datavolume1/"
     }
