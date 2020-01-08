@@ -34,12 +34,12 @@
       }
     }
     stage("Build") {
-      sh "cd /datavolume1 ; docker build -t codevalue/cd-demo:${BUILD_NUMBER} ."
+      sh "cd /datavolume1 ; docker build -t mms2020/cd-demo:${BUILD_NUMBER} ."
     }
     stage("Publish") {
       withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'DPASSWORD', usernameVariable: 'DUSER')]) {
         sh "echo $DPASSWORD | docker login --username $DUSER --password-stdin "
-        sh "docker push codevalue/cd-demo:${BUILD_NUMBER}"
+        sh "docker push mms2020/cd-demo:${BUILD_NUMBER}"
       }
     }
   }
