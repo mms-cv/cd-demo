@@ -30,7 +30,7 @@
     }
     stage('Uploading Artifact To Jfrog'){
       withCredentials([usernamePassword(credentialsId: 'JfrogArtifacte', passwordVariable: 'JPASSWORD', usernameVariable: 'JUSER')]) {
-          sh "tar -czvf go-test-project_${BUILD_NUMBER}.tar.gz /go/src/cd-demo ; curl -u$JUSER:$JPASSWORD -T /go/src/cd-demo/go-test-project_${BUILD_NUMBER}.tar.gz 'https://golan.jfrog.io/golan/go/go-test-project_${BUILD_NUMBER}.tar.gz'"
+          sh "tar -czvf go-test-project_${BUILD_NUMBER}.tar.gz /datavolume1/cd-demo ; curl -u$JUSER:$JPASSWORD -T /datavolume1/go-test-project_${BUILD_NUMBER}.tar.gz 'https://golan.jfrog.io/golan/go/go-test-project_${BUILD_NUMBER}.tar.gz'"
       }
     }
     stage("Build") {
