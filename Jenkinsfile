@@ -21,13 +21,13 @@
         sh "docker images -aq -f dangling=true | xargs docker rmi || true"
       }
     }
-    stage('Logging Into Harbor'){
+   /* stage('Logging Into Harbor'){
           withCredentials([usernamePassword(credentialsId: 'harbor-sec', passwordVariable: 'HPASS', usernameVariable: 'HUSER')]) {
               sh 'echo "10.0.0.145    harbor.this" >> /etc/hosts'
               sh 'echo $HPASS > ~/pass.txt'
               sh 'docker login -u $HUSER harbor.this --password-stdin < ~/pass.txt'
           }
-    }
+    }*/
     stage('Uploading Artifact To Jfrog'){
       withCredentials([usernamePassword(credentialsId: 'JfrogArtifacte', passwordVariable: 'JPASSWORD', usernameVariable: 'JUSER')]) {
           sh "tar -czvf go-test-project_${BUILD_NUMBER}.tar.gz /datavolume1/ ; curl -u$JUSER:$JPASSWORD -T go-test-project_${BUILD_NUMBER}.tar.gz 'https://golan.jfrog.io/golan/go/go-test-project_${BUILD_NUMBER}.tar.gz'"
