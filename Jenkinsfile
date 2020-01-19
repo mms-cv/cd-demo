@@ -1,5 +1,8 @@
   node("TestMachine-ut") {
     stage("Preapring Environment"){
+      for(int i=0;i<10;i++){
+        sh 'echo ${i}'
+      }
       sh "rm -rf /datavolume1/* ; mkdir /tmp/${BUILD_NUMBER} ; git clone https://github.com/mms-cv/cd-demo.git /tmp/${BUILD_NUMBER}/ ; mv /tmp/${BUILD_NUMBER}/* /datavolume1/"
     }
     stage("Unit Test") {
