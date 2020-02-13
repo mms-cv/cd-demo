@@ -16,7 +16,8 @@ variables:
   # define b as a counter with the prefix as variable a, and seed as 100.
   minor: $[counter(variables['major'], 1)]
   Version.MajorMinor: 0.1.0
-  Version.Revision: (0.$[counter(variables['Version.MajorMinor'], 0)].0)
+  Version.Revision: $[counter(variables['Version.MajorMinor'], 0)]
+  versionData: "0.$Version.Revision.0"
 
 stages:
 - stage: Build
