@@ -45,4 +45,5 @@ stages:
         script: |
           # Write your commands here
           
-          echo '$(Build.BuildId)'
+          echo '$VERSION'
+          export VERSION=0.8.0
