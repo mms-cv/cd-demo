@@ -14,7 +14,7 @@ variables:
   someVersion: ${{ 0.2.0 }}
   major: 1
   # define b as a counter with the prefix as variable a, and seed as 100.
-  minor: 0.$[counter(variables['major'], 1)].0
+  minor: $[counter(variables['major'], 1)]
 
 stages:
 - stage: Build
