@@ -17,6 +17,9 @@ variables:
   minor: $[counter(variables['major'], 1)]
   Version.MajorMinor: 0.1.0
   Version.Revision: $[counter(variables['Version.MajorMinor'], 0)]
+  Mj: 0
+  Mi: 0
+  ver: $[counter(format('{0}.{1}',variables['Mj'],variables['Mi']),0)]
 
 stages:
 - stage: Build
@@ -35,4 +38,5 @@ stages:
           echo 0.$(Version.Revision).0
           echo 0.$(minor).0
           echo 0.$(a).0
+          esho $(ver)
 
