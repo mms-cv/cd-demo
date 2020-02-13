@@ -17,6 +17,8 @@ variables:
   # define b as a counter with the prefix as variable a, and seed as 100.
   minor: $[counter(variables['major'], 1)]
   minor2: $[counter(variables['major2'], 1)]
+  Version.MajorMinor: 1.0
+  Version.Revision: $[counter(variables['Version.MajorMinor'], 0)]
 
 stages:
 - stage: Build
@@ -32,6 +34,7 @@ stages:
         targetType: 'inline'
         script: |
           # Write your commands here
+          echo $(Version.Revision)
           echo 0.$(minor).0
           echo 0.$(minor2).0
           echo $(a)
