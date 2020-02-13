@@ -3,7 +3,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- master
+- none
 
 resources:
 - repo: self
@@ -35,9 +35,4 @@ stages:
         script: |
           # Write your commands here
           echo $(Version.Revision)
-          echo 0.$(minor).0
-          echo 0.$(minor2).0
-          echo $(a)
-          echo $(someVersion)
-          echo $(VERSION)
-          export VERSION=0.8.0
+
