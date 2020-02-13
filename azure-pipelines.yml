@@ -19,7 +19,7 @@ variables:
   Version.Revision: $[counter(variables['Version.MajorMinor'], 0)]
   Mj: 0
   Mi: 0
-  ver: $[counter(format('{0}.{1}',variables['Mj'],variables['Mi']),0)]
+  ver: $[counter(format('{0}.{1}', variables['Mj'], variables['Mi']),0)]
 
 stages:
 - stage: Build
