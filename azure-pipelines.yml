@@ -15,6 +15,7 @@ variables:
   major: 1
   # define b as a counter with the prefix as variable a, and seed as 100.
   minor: $[counter(variables['major'], 1)]
+  minor1: $[counter(variables['major'], 1)]
 
 stages:
 - stage: Build
@@ -31,6 +32,7 @@ stages:
         script: |
           # Write your commands here
           echo 0.$(minor).0
+          echo 0.$(minor1).0
           echo $(a)
           echo $(someVersion)
           echo $(VERSION)
