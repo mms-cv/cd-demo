@@ -30,7 +30,7 @@ stages:
         targetType: 'inline'
         script: |
           # Write your commands here
-          echo $(minor)
+          echo $((0.$(minor).0))
           echo $(a)
           echo $(someVersion)
           echo $(VERSION)
