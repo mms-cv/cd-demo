@@ -30,6 +30,13 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+    - task: versioncounter@1
+      inputs:
+        VersionVariable: '0.2.0'
+        UpdateMinorVersion: true
+        MaxValuePatchVersion: '100'
+        UpdateMajorVersion: true
+        MaxValueMinorVersion: '12'
     - task: Bash@3
       inputs:
         targetType: 'inline'
@@ -39,4 +46,4 @@ stages:
           echo 0.$(minor).0
           echo 0.$(a).0
           esho $(ver)
-
+          echo $(VersionVariable)
