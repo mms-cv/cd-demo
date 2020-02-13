@@ -17,7 +17,7 @@ variables:
   minor: $[counter(variables['major'], 1)]
   Version.MajorMinor: 0.1.0
   Version.Revision: $[counter(variables['Version.MajorMinor'], 0)]
-  versionData: "0.$Version.Revision.0"
+  versionData: "0.${{Version.Revision}}.0"
 
 stages:
 - stage: Build
