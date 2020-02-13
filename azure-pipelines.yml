@@ -13,9 +13,10 @@ variables:
   a: $[counter(format('{0:yyyyMMdd}', pipeline.startTime), 100)]
   someVersion: ${{ 0.2.0 }}
   major: 1
+  major1: 1
   # define b as a counter with the prefix as variable a, and seed as 100.
   minor: $[counter(variables['major'], 1)]
-  minor1: $[counter(variables['major'], 1)]
+  minor1: $[counter(variables['major1'], 1)]
 
 stages:
 - stage: Build
