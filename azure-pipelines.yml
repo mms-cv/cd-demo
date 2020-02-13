@@ -27,11 +27,11 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        script: |
-          # Write your commands here
-          echo 0.$(Version.Revision).0
-          echo 0.$(minor).0
-          echo 0.$(a).0
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Write your commands here
+            echo 0.$(Version.Revision).0
+            echo 0.$(minor).0
+            echo 0.$(a).0
