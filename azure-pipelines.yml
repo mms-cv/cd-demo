@@ -45,5 +45,5 @@ stages:
         script: |
           # Write your commands here
           
-          echo '$VERSION'
+          echo ($VERSION)
           export VERSION=0.8.0
