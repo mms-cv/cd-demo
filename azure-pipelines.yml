@@ -10,6 +10,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
+  a: $[counter(format('{0:yyyyMMdd}', pipeline.startTime), 100)]
 
 stages:
 - stage: Build
@@ -25,6 +26,6 @@ stages:
         targetType: 'inline'
         script: |
           # Write your commands here
-          
+          echo $(a)
           echo $(VERSION)
           export VERSION=0.8.0
